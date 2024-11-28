@@ -1,3 +1,5 @@
+import Game from "@/components/game"
+
 export default function Home() {
-  return <main>Hello world</main>
+  return <Game />
 }

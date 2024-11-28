@@ -6,11 +6,11 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}"
   ],
+  safelist: ["mario", "text-stroke-px", "text-stroke-2", "text-stroke-4"],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)"
+      fontFamily: {
+        mario: ["mario"]
       }
     }
   },

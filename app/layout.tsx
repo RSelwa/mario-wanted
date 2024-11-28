@@ -1,3 +1,5 @@
+import StoreProvider from "@/app/providers"
+import Navbar from "@/components/navbar"
 import type { Metadata } from "next"
 import "./globals.css"
 
@@ -12,8 +14,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="h-full">
+      <body className="h-full m-0 font-mario">
+        <StoreProvider>
+          <Navbar />
+          {children}
+        </StoreProvider>
+      </body>
     </html>
   )
 }
