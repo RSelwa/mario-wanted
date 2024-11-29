@@ -32,8 +32,10 @@ export const getDifficulty = (difficulty: number) => {
 }
 
 export const generateRandomPosition = () => {
-  const width = window?.innerWidth || RESOLUTION.WIDTH
-  const height = window?.innerHeight || RESOLUTION.HEIGHT
+  const width = RESOLUTION.WIDTH
+  const height = RESOLUTION.HEIGHT
+  // const width = window?.innerWidth || RESOLUTION.WIDTH
+  // const height = window?.innerHeight || RESOLUTION.HEIGHT
 
   const x = Math.floor(Math.random() * (width - 2 * PADDING)) + PADDING
   const y =

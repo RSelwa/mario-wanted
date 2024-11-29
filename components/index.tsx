@@ -14,19 +14,27 @@ const Game = () => {
   const [position, setPosition] = useState({ x: 10, y: 10 })
   const [velocity, setVelocity] = useState({ xSpeed: 4, ySpeed: 4 })
 
-  useEffect(() => {
-    const updateDimensions = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      })
-      setPosition({ x: 10, y: 10 }) // Reset position on resize
-    }
+  // useEffect(() => {
+  //   const updateDimensions = () => {
+  //     setWindowSize({
+  //       width: window.innerWidth,
+  //       height: window.innerHeight
+  //     })
+  //     setPosition({ x: 10, y: 10 }) // Reset position on resize
+  //   }
 
-    window.addEventListener("resize", updateDimensions)
+  //   if (typeof window !== "undefined")
+  //     window.addEventListener("resize", updateDimensions)
 
-    return () => window.removeEventListener("resize", updateDimensions)
-  }, [])
+  //   return () => window.removeEventListener("resize", updateDimensions)
+  // }, [])
+
+  const resize = () => {
+    setWindowSize({
+      width: 1920,
+      height: 1080
+    })
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -64,18 +72,12 @@ const Game = () => {
     return () => clearInterval(interval)
   }, [velocity, windowSize])
 
-  if (typeof window !== "undefined") {
-    console.log(window)
-
-    console.log(window.innerHeight)
-    console.log(window.innerWidth)
-  }
-
   return (
     <div
       ref={sectionRef}
       className="bg-black h-full w-full relative overflow-hidden"
     >
+      <button onClick={resize} />
       <div
         onClick={() => console.log("clicked")}
         ref={logoRef}
