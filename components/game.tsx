@@ -1,14 +1,19 @@
 "use client"
 
 import Head from "@/components/head"
-import { selectWanted } from "@/redux/game.slice"
+import { selectDifficulty, selectWanted } from "@/redux/game.slice"
 import { useAppSelector } from "@/redux/store"
-import { generateRandomCharacters, generateRandomPosition } from "@/utils"
+import {
+  generateRandomCharacters,
+  generateRandomPosition,
+  getDifficulty
+} from "@/utils"
 
 const Game = () => {
   const wanted = useAppSelector(selectWanted)
+  const difficulty = useAppSelector(selectDifficulty)
 
-  const size = 50
+  const size = getDifficulty(difficulty)
 
   const heads = generateRandomCharacters(wanted, size)
 

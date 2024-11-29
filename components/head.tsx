@@ -28,6 +28,8 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
   const { wanted, lives, status } = useAppSelector(selectGame)
 
   const isWanted = wanted === character
+  const isFound = status === STATUS.FOUND
+  const isLost = status === STATUS.LOST
 
   const handleRight = async () => {
     if (status === STATUS.FOUND) return
@@ -50,7 +52,7 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
 
   return (
     <>
-      {isWanted && status === STATUS.FOUND && (
+      {isWanted && isFound && (
         <span
           style={{ top: coordinates.y - OFFSET_TIMER_UI, left: coordinates.x }}
           className="absolute z-30 size-8 text-red-400 text-xl text-stroke-2"
@@ -61,12 +63,14 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
       {isWanted && (
         <button
           onClick={handleRight}
-          className="absolute size-8 z-30 scale-150"
+          data-cursor={isFound ? "hidden" : ""}
+          className="absolute size-8 z-30 scale-150 data-[cursor=hidden]:cursor-none"
           style={{ top: coordinates.y, left: coordinates.x }}
         />
       )}
       <Image
-        data-state={status === STATUS.FOUND && !isWanted ? "found" : ""}
+        data-state={(isFound || isLost) && !isWanted ? "found" : ""}
+        data-cursor={isFound ? "hidden" : ""}
         onClick={isWanted ? handleRight : handleWrong}
         src={`/assets/${character}.png`}
         width={30}
@@ -76,10 +80,12 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
           top: coordinates.y,
           left: coordinates.x
         }}
-        className="data-[state=found]:hidden absolute scale-150 z-20"
+        className="data-[state=found]:hidden data-[cursor=hidden]:cursor-none absolute scale-150 z-20"
       />
     </>
   )
 })
+
+Head.displayName = "Head"
 
 export default Head

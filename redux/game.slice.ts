@@ -1,4 +1,6 @@
 import {
+  DIFFICULTY_INCREASE,
+  INITIAL_DIFFICULTY,
   INITIAL_LIVES,
   INITIAL_ROUND,
   INITIAL_SCORE,
@@ -17,9 +19,10 @@ const initialState: Game = {
   wanted: randomWanted(),
   score: INITIAL_SCORE,
   round: INITIAL_ROUND,
-  status: STATUS.PLAYING,
+  status: STATUS.IDLE,
   lives: INITIAL_LIVES,
-  timer: INITIAL_TIMER
+  timer: INITIAL_TIMER,
+  difficulty: INITIAL_DIFFICULTY
 }
 
 export const gameSlice = createSlice({
@@ -31,9 +34,13 @@ export const gameSlice = createSlice({
       state.wanted = randomWanted()
       state.round += ROUND_INCREMENT
       state.status = STATUS.PLAYING
+      state.difficulty += DIFFICULTY_INCREASE
     },
     updateStatus: (state, { payload }: PayloadAction<Game["status"]>) => {
       state.status = payload
+    },
+    startGame: (state) => {
+      state.status = STATUS.PLAYING
     },
     incrementScore: (state) => {
       state.score += SCORE_INCREASE
@@ -66,11 +73,13 @@ export const {
   updateStatus,
   changeStatus,
   newRound,
-  newWanted
+  newWanted,
+  startGame
 } = gameSlice.actions
 
 export const selectGame = (state: RootState) => state.game
 export const selectWanted = (state: RootState) => state.game.wanted
+export const selectDifficulty = (state: RootState) => state.game.difficulty
 export const selectStatus = (state: RootState) => state.game.status
 
 export default gameSlice.reducer

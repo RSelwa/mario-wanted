@@ -9,6 +9,7 @@ export type Game = {
   status: GameStatus
   lives: number
   timer: number
+  difficulty: number
 }
 
 export type Coordinate = {

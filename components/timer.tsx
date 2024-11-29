@@ -3,9 +3,7 @@ import { decreaseTimer, selectGame } from "@/redux/game.slice"
 import { useAppDispatch, useAppSelector } from "@/redux/store"
 import { useEffect } from "react"
 
-type Props = {}
-
-const Timer = (props: Props) => {
+const Timer = () => {
   const dispatch = useAppDispatch()
   const { status, timer } = useAppSelector(selectGame)
 
@@ -16,7 +14,13 @@ const Timer = (props: Props) => {
 
     return () => clearInterval(interval)
   }, [status, dispatch])
-  return <p className="text-4xl">{timer}</p>
+
+  return (
+    <article className="absolute z-20 font-bold text-stroke-px left-1/2 -translate-x-1/2 flex flex-col justify-center items-center">
+      <p className="">Time</p>
+      <p className="text-4xl">{timer}</p>
+    </article>
+  )
 }
 
 export default Timer
