@@ -38,4 +38,12 @@ export const INITIAL_TIMER = 10 // seconds
 export const INITIAL_LIVES = 1
 export const INITIAL_ROUND = 1
 export const INITIAL_SCORE = 0
+
+// Difficulty
 export const INITIAL_DIFFICULTY = 1
+export const MIN_DIFFICULTY = 1
+export const RANDOM_START_DIFFICULTY = 4
+export const MAX_DIFFICULTY = 8
+export const DIFFICULTY_MOVING_PERCENTAGE = 0.1
+
+export const DISPLAY_HEAD_PERCENTAGE_HIDE = 0.1

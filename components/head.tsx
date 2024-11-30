@@ -1,3 +1,5 @@
+"use client"
+
 import {
   DELAY_BEFORE_NEW_WANTED,
   OFFSET_TIMER_UI,

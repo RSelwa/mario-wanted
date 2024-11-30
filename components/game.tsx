@@ -1,28 +1,44 @@
 "use client"
 
 import Head from "@/components/head"
-import { selectDifficulty, selectWanted } from "@/redux/game.slice"
+import {
+  selectDifficulty,
+  selectDisplayHeads,
+  selectResolution,
+  selectWanted
+} from "@/redux/game.slice"
 import { useAppSelector } from "@/redux/store"
 import {
   generateRandomCharacters,
   generateRandomPosition,
-  getDifficulty
+  getNumberOfCharacters,
+  insertAtRandomPosition
 } from "@/utils"
 
 const Game = () => {
   const wanted = useAppSelector(selectWanted)
   const difficulty = useAppSelector(selectDifficulty)
+  const displayHeads = useAppSelector(selectDisplayHeads)
+  const resolution = useAppSelector(selectResolution)
 
-  const size = getDifficulty(difficulty)
+  const numberOfCharacters = getNumberOfCharacters(difficulty)
 
-  const heads = generateRandomCharacters(wanted, size)
+  const randomHeads = generateRandomCharacters(
+    wanted,
+    numberOfCharacters,
+    resolution
+  )
+  const wantedHead = {
+    character: wanted,
+    coordinates: generateRandomPosition(resolution)
+  }
+
+  const heads = insertAtRandomPosition(randomHeads, wantedHead)
 
   return (
     <section id="container" className="flex-1 relative overflow-hidden">
-      <Head character={wanted} coordinates={generateRandomPosition()} />
-      {heads.map((props, index) => (
-        <Head key={index} {...props} />
-      ))}
+      {displayHeads &&
+        heads.map((props, index) => <Head key={index} {...props} />)}
     </section>
   )
 }

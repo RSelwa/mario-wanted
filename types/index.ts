@@ -10,6 +10,12 @@ export type Game = {
   lives: number
   timer: number
   difficulty: number
+  resolution: Resolution
+}
+
+export type Resolution = {
+  width: number
+  height: number
 }
 
 export type Coordinate = {

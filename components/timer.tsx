@@ -16,9 +16,9 @@ const Timer = () => {
   }, [status, dispatch])
 
   return (
-    <article className="absolute z-20 font-bold text-stroke-px left-1/2 -translate-x-1/2 flex flex-col justify-center items-center">
-      <p className="">Time</p>
-      <p className="text-4xl">{timer}</p>
+    <article className="absolute z-20 font-bold left-1/2 -translate-x-1/2 flex flex-col justify-center items-center">
+      <p>Time</p>
+      <p className="text-4xl text-stroke-px">{timer}</p>
     </article>
   )
 }

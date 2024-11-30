@@ -1,14 +1,19 @@
 "use client"
+
 import Timer from "@/components/timer"
 import { MODULO_SCORE } from "@/constant"
-import { selectGame } from "@/redux/game.slice"
+import {
+  selectDisplayHeads,
+  selectScore,
+  selectWanted
+} from "@/redux/game.slice"
 import { useAppSelector } from "@/redux/store"
 import Image from "next/image"
 
 const Navbar = () => {
-  const { score, wanted } = useAppSelector(selectGame)
-
-  const wanterImg = `/assets/${wanted}-wanted.jpg`
+  const score = useAppSelector(selectScore)
+  const wanted = useAppSelector(selectWanted)
+  const displayHeads = useAppSelector(selectDisplayHeads)
 
   const littleStars = Array.from({ length: score % MODULO_SCORE }).fill(null)
   const isBigStar = score >= MODULO_SCORE
@@ -17,9 +22,17 @@ const Navbar = () => {
     <nav className="flex w-full justify-center items-center text-yellow-400 font-mario ">
       <section className="relative flex justify-start">
         {/* <article className="h-[292px] -translate-x-1/2 z-10 rounded-full aspect-square left-1/2 absolute border-[5rem] top-1/2 -translate-y-[60%] border-black border-solid" /> */}
-        <article className="text-3xl scale-75 ml-8">
-          <Image priority src={wanterImg} alt="" width="256" height="192" />
-        </article>
+        {displayHeads && (
+          <article className="text-3xl scale-75 ml-8">
+            <Image
+              priority
+              src={`/assets/${wanted}-wanted.jpg`}
+              alt=""
+              width="256"
+              height="192"
+            />
+          </article>
+        )}
 
         <article className="flex flex-col-reverse items-center w-fit gap-1">
           <div

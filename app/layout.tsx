@@ -1,6 +1,7 @@
 import StoreProvider from "@/app/providers"
-import Modal from "@/components/modal"
+import Modals from "@/components/modals"
 import Navbar from "@/components/navbar"
+import Resize from "@/components/resize"
 import type { Metadata } from "next"
 import "./globals.css"
 
@@ -19,8 +20,9 @@ export default function RootLayout({
       <body className="h-full m-0 font-mario">
         <StoreProvider>
           <Navbar />
-          <Modal />
+          <Modals />
           {children}
+          <Resize />
         </StoreProvider>
       </body>
     </html>
