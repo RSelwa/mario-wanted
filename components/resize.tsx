@@ -8,8 +8,6 @@ const Resize = () => {
   const { width, height } = useWindowSize()
   const dispatch = useDispatch()
 
-  console.log(width, height)
-
   dispatch(updateResolution({ width, height }))
 
   return null

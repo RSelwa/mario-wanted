@@ -1,8 +1,9 @@
 export type Wanted = "mario" | "luigi" | "wario" | "yoshi"
 
-export type GameStatus = "idle" | "playing" | "found" | "lost"
+export type GameStatus = "idle" | "playing" | "found" | "lost" | "waiting"
 
 export type Game = {
+  selectedGame: "wanted"
   wanted: Wanted
   score: number
   round: number

@@ -1,3 +1,5 @@
+"use client"
+
 import { STATUS, TIMER_SPEED } from "@/constant"
 import { decreaseTimer, selectGame } from "@/redux/game.slice"
 import { useAppDispatch, useAppSelector } from "@/redux/store"
@@ -12,8 +14,12 @@ const Timer = () => {
       if (status === STATUS.PLAYING && timer) dispatch(decreaseTimer())
     }, TIMER_SPEED)
 
+    if (status === STATUS.WAITING) clearInterval(interval)
+
     return () => clearInterval(interval)
   }, [status, dispatch])
+
+  if (status === STATUS.IDLE) return null
 
   return (
     <article className="absolute z-20 font-bold left-1/2 -translate-x-1/2 flex flex-col justify-center items-center">

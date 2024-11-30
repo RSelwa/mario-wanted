@@ -7,9 +7,14 @@ export const CHARACTERS = {
 
 export const STATUS = {
   IDLE: "idle",
+  WAITING: "waiting",
   PLAYING: "playing",
   FOUND: "found",
   LOST: "lost"
+} as const
+
+export const GAMES = {
+  WANTED: "wanted"
 } as const
 
 export const ALL_CHARACTERS = Object.values(CHARACTERS)

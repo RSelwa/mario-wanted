@@ -1,4 +1,5 @@
 import {
+  GAMES,
   INITIAL_DIFFICULTY,
   INITIAL_LIVES,
   INITIAL_ROUND,
@@ -16,6 +17,7 @@ import { increaseDifficulty, randomWanted } from "@/utils"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: Game = {
+  selectedGame: GAMES.WANTED,
   wanted: randomWanted(),
   score: INITIAL_SCORE,
   round: INITIAL_ROUND,
@@ -102,11 +104,10 @@ export const selectGame = (state: RootState) => state.game
 export const selectWanted = (state: RootState) => state.game.wanted
 export const selectScore = (state: RootState) => state.game.score
 export const selectDisplayHeads = (state: RootState) =>
-  state.game.status === STATUS.PLAYING ||
-  state.game.status === STATUS.LOST ||
-  state.game.status === STATUS.FOUND
+  state.game.selectedGame === GAMES.WANTED && state.game.status !== STATUS.IDLE
 export const selectDifficulty = (state: RootState) => state.game.difficulty
 export const selectStatus = (state: RootState) => state.game.status
 export const selectResolution = (state: RootState) => state.game.resolution
+export const selectSelectedGame = (state: RootState) => state.game.selectedGame
 
 export default gameSlice.reducer

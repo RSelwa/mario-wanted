@@ -10,9 +10,7 @@ import {
   changeStatus,
   incrementScore,
   incrementTimer,
-  loseLife,
   newRound,
-  resetGame,
   selectGame
 } from "@/redux/game.slice"
 import { useAppDispatch, useAppSelector } from "@/redux/store"
@@ -27,7 +25,7 @@ type Props = {
 
 const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
   const dispatch = useAppDispatch()
-  const { wanted, lives, status } = useAppSelector(selectGame)
+  const { wanted, status } = useAppSelector(selectGame)
 
   const isWanted = wanted === character
   const isFound = status === STATUS.FOUND
@@ -36,7 +34,7 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
   const handleRight = async () => {
     if (status === STATUS.FOUND) return
 
-    dispatch(changeStatus(STATUS.FOUND))
+    dispatch(changeStatus(STATUS.WAITING))
     dispatch(incrementScore())
     dispatch(incrementTimer())
 
@@ -47,9 +45,6 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
 
   const handleWrong = () => {
     if (status === STATUS.LOST) return
-
-    dispatch(loseLife())
-    if (!lives) dispatch(resetGame())
   }
 
   return (
