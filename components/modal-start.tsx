@@ -1,5 +1,6 @@
 "use client"
 
+import HighScore from "@/components/high-score"
 import { ModalBase } from "@/components/modals"
 import { startGame } from "@/redux/game.slice"
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
@@ -14,10 +15,11 @@ const ModalStart = () => {
 
   return (
     <ModalBase>
+      <HighScore />
       <AlertDialog.Action asChild>
         <button
           onClick={start}
-          className="px-8 py-4 bg-amber-400 rounded-full hover:bg-amber-500"
+          className="px-8 py-4 mx-auto bg-amber-200 rounded-full hover:bg-amber-500"
         >
           Start
         </button>

@@ -14,7 +14,7 @@ export const ModalBase = ({ children }: { children: ReactNode }) => {
       <AlertDialog.Trigger />
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed z-40 inset-0 bg-black/60 data-[state=open]:animate-overlayShow" />
-        <AlertDialog.Content className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md  p-[25px]  focus:outline-none data-[state=open]:animate-contentShow">
+        <AlertDialog.Content className="fixed z-50 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md p-[25px]  focus:outline-none data-[state=open]:animate-contentShow flex flex-col items-center">
           <AlertDialog.Title />
           <AlertDialog.Description />
           {children}

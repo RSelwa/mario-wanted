@@ -3,13 +3,15 @@ import {
   DIFFICULTY_INCREASE,
   DIFFICULTY_MOVING_PERCENTAGE,
   DISPLAY_HEAD_PERCENTAGE_HIDE,
+  KEY_SCORE,
   MAX_DIFFICULTY,
   MIN_DIFFICULTY,
   NAVBAR_HEIGHT,
   PADDING,
   RANDOM_START_DIFFICULTY
 } from "@/constant"
-import { Resolution, Wanted } from "@/types"
+import { Resolution, Score, Wanted } from "@/types"
+import { setItemInLocalStorage } from "@/utils/storage"
 import cx, { type ArgumentArray } from "classnames"
 import { twMerge } from "tailwind-merge"
 
@@ -76,4 +78,11 @@ export const insertAtRandomPosition = <T>(array: T[], element: T): T[] => {
   const randomIndex = Math.floor(Math.random() * (maxIndex || 1)) // maxIndex || 1 gère les tableaux vides.
   array.splice(randomIndex, 0, element)
   return array
+}
+
+export const updatedHighScore = (highScore: Score[], score: Score) => {
+  const newHighScore = [...highScore, score].sort((a, b) => b - a)
+
+  setItemInLocalStorage(KEY_SCORE, newHighScore.slice(0, 6))
+  return newHighScore.slice(0, 6)
 }

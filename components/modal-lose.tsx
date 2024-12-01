@@ -1,3 +1,4 @@
+import HighScore from "@/components/high-score"
 import { ModalBase } from "@/components/modals"
 import { restartGame } from "@/redux/game.slice"
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
@@ -12,9 +13,10 @@ const ModalLose = () => {
 
   return (
     <ModalBase>
+      <HighScore />
       <AlertDialog.Action asChild>
         <button
-          className="px-8 py-4 bg-amber-400 rounded-full hover:bg-amber-500"
+          className="px-8 py-4 bg-amber-200 rounded-full hover:bg-amber-500"
           onClick={restart}
         >
           Play again

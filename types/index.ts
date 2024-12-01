@@ -12,6 +12,7 @@ export type Game = {
   timer: number
   difficulty: number
   resolution: Resolution
+  highScore: Score[]
 }
 
 export type Resolution = {
@@ -23,3 +24,5 @@ export type Coordinate = {
   x: number
   y: number
 }
+
+export type Score = number

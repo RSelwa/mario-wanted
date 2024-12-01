@@ -13,6 +13,8 @@ export const STATUS = {
   LOST: "lost"
 } as const
 
+export const KEY_SCORE = "high-score"
+
 export const GAMES = {
   WANTED: "wanted"
 } as const
@@ -33,7 +35,9 @@ export const OFFSET_TIMER_UI = 30
 export const ROUND_INCREMENT = 1
 export const DELAY_BEFORE_NEW_WANTED = 2000 // milliseconds
 
+export const TIMER_DECREASE = 10 // seconds
 export const TIMER_INCREASE = 5 // seconds
+export const MAX_TIMER = 50 // seconds
 export const SCORE_INCREASE = 1
 export const DIFFICULTY_INCREASE = 1
 
@@ -52,3 +56,4 @@ export const MAX_DIFFICULTY = 8
 export const DIFFICULTY_MOVING_PERCENTAGE = 0.1
 
 export const DISPLAY_HEAD_PERCENTAGE_HIDE = 0.1
+export const DEFAULT_HIGH_SCORE = [0, 0, 0, 0, 0, 0]
