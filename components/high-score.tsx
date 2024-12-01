@@ -17,7 +17,7 @@ const HighScore = () => {
             <span className="w-4 mr-4">{index + 1}</span>
             <Image
               src="/assets/big-star.png"
-              width={30}
+              width={32}
               height={30}
               alt="little-star"
             />

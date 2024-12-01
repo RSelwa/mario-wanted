@@ -18,7 +18,7 @@ import { twMerge } from "tailwind-merge"
 export const cn = (...classes: ArgumentArray) => twMerge(cx(classes))
 
 export const generateRandomCharacters = (
-  characterToExclude: Wanted,
+  characterToExclude: Wanted | null,
   size: number,
   resolution: Resolution
 ) => {
