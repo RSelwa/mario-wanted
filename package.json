@@ -17,6 +17,7 @@
     "@radix-ui/react-alert-dialog": "^1.1.2",
     "@radix-ui/react-dialog": "^1.1.2",
     "@reduxjs/toolkit": "^2.4.0",
+    "@vercel/analytics": "^1.4.1",
     "classnames": "^2.5.1",
     "next": "14.2.16",
     "react": "^18",

@@ -3,6 +3,7 @@ import Navbar from "@/components/navbar"
 import StoreProvider from "@/components/providers"
 import Resize from "@/components/resize"
 import Socials from "@/components/socials"
+import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next"
 import "./globals.css"
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           {children}
           <Resize />
           <Socials />
+          <Analytics />
         </StoreProvider>
       </body>
     </html>
