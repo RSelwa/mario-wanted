@@ -1,4 +1,5 @@
 import Modals from "@/components/modals"
+import Music from "@/components/music"
 import Navbar from "@/components/navbar"
 import StoreProvider from "@/components/providers"
 import Resize from "@/components/resize"
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
           <Resize />
           <Socials />
+          <Music />
           <Analytics />
         </StoreProvider>
       </body>
