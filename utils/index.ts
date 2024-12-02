@@ -1,5 +1,6 @@
 import {
   ALL_CHARACTERS,
+  DELAY_BEFORE_NEW_WANTED,
   DIFFICULTY_INCREASE,
   DIFFICULTY_MOVING_PERCENTAGE,
   DISPLAY_HEAD_PERCENTAGE_HIDE,
@@ -8,9 +9,11 @@ import {
   MIN_DIFFICULTY,
   NAVBAR_HEIGHT,
   PADDING,
-  RANDOM_START_DIFFICULTY
+  RANDOM_START_DIFFICULTY,
+  STATUS
 } from "@/constant"
-import { Resolution, Score, Wanted } from "@/types"
+import { changeStatus, newRound } from "@/redux/game.slice"
+import { DispatchType, Resolution, Score, Wanted } from "@/types"
 import { setItemInLocalStorage } from "@/utils/storage"
 import cx, { type ArgumentArray } from "classnames"
 import { twMerge } from "tailwind-merge"
@@ -85,4 +88,32 @@ export const updatedHighScore = (highScore: Score[], score: Score) => {
 
   setItemInLocalStorage(KEY_SCORE, newHighScore.slice(0, 6))
   return newHighScore.slice(0, 6)
+}
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+export const hideHole = async () => {
+  const hole = document.querySelector(".shadow-hole")
+  hole?.classList.add("force-black")
+  await sleep(DELAY_BEFORE_NEW_WANTED + 250)
+  hole?.classList.remove("force-black")
+}
+
+export const animateHole = async () => {
+  const hole = document.querySelector(".shadow-hole")
+
+  hole?.classList.remove("animate-circleShow")
+
+  await sleep(150)
+
+  hole?.classList.add("animate-circleShow")
+}
+
+export const newRoundWanted = async (dispatch: DispatchType) => {
+  dispatch(newRound())
+  dispatch(changeStatus(STATUS.WAITING))
+
+  await sleep(DELAY_BEFORE_NEW_WANTED)
+
+  dispatch(changeStatus(STATUS.PLAYING))
 }

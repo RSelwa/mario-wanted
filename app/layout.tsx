@@ -8,8 +8,8 @@ import type { Metadata } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  icons: ["/assets/mario.png"],
-  title: "Mario wanted",
+  icons: ["/assets/luigi.png"],
+  title: "Find luigi",
   description:
     "The web version of the mini game Mario wanted from New Super Mario Bros",
   authors: [

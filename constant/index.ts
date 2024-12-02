@@ -45,7 +45,7 @@ export const TIMER_SPEED = 1000 // milliseconds
 
 export const INITIAL_TIMER = 10 // seconds
 export const INITIAL_LIVES = 1
-export const INITIAL_ROUND = 1
+export const INITIAL_ROUND = 0
 export const INITIAL_SCORE = 0
 
 // Difficulty
@@ -57,3 +57,6 @@ export const DIFFICULTY_MOVING_PERCENTAGE = 0.1
 
 export const DISPLAY_HEAD_PERCENTAGE_HIDE = 0.1
 export const DEFAULT_HIGH_SCORE = [0, 0, 0, 0, 0, 0]
+
+export const CIRCLE_QUERY_SELECTOR = ".shadow-hole"
+export const CIRCLE_ANIMATION_CLASS = "animate-circleShow"

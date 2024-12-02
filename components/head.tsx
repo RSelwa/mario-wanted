@@ -1,6 +1,8 @@
 "use client"
 
 import {
+  CIRCLE_ANIMATION_CLASS,
+  CIRCLE_QUERY_SELECTOR,
   DELAY_BEFORE_NEW_WANTED,
   OFFSET_TIMER_UI,
   STATUS,
@@ -11,12 +13,12 @@ import {
   changeStatus,
   incrementScore,
   incrementTimer,
-  newRound,
   selectGame,
   wrongHead
 } from "@/redux/game.slice"
 import { useAppDispatch, useAppSelector } from "@/redux/store"
 import { Coordinate, Wanted } from "@/types"
+import { newRoundWanted, sleep } from "@/utils"
 import Image from "next/image"
 import React, { useState } from "react"
 
@@ -42,13 +44,15 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
     dispatch(incrementScore())
     dispatch(incrementTimer())
 
-    await new Promise((r) => setTimeout(r, DELAY_BEFORE_NEW_WANTED))
+    await sleep(DELAY_BEFORE_NEW_WANTED)
 
-    dispatch(newRound())
-    dispatch(changeStatus(STATUS.WAITING))
+    const hole = document.querySelector(CIRCLE_QUERY_SELECTOR)
+    hole?.classList.remove(CIRCLE_ANIMATION_CLASS)
 
-    await new Promise((r) => setTimeout(r, DELAY_BEFORE_NEW_WANTED))
-    dispatch(changeStatus(STATUS.PLAYING))
+    await sleep(150)
+
+    newRoundWanted(dispatch)
+    hole?.classList.add(CIRCLE_ANIMATION_CLASS)
   }
 
   const handleWrong = async () => {

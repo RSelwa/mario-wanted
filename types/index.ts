@@ -1,3 +1,5 @@
+import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit"
+
 export type Wanted = "mario" | "luigi" | "wario" | "yoshi"
 
 export type GameStatus = "idle" | "playing" | "found" | "lost" | "waiting"
@@ -26,3 +28,12 @@ export type Coordinate = {
 }
 
 export type Score = number
+
+export type DispatchType = ThunkDispatch<
+  {
+    game: Game
+  },
+  undefined,
+  UnknownAction
+> &
+  Dispatch<UnknownAction>

@@ -2,15 +2,15 @@
 
 import HighScore from "@/components/high-score"
 import { ModalBase } from "@/components/modals"
-import { startGame } from "@/redux/game.slice"
+import { newRoundWanted } from "@/utils"
 import * as AlertDialog from "@radix-ui/react-alert-dialog"
 import { useDispatch } from "react-redux"
 
 const ModalStart = () => {
   const dispatch = useDispatch()
 
-  const start = () => {
-    dispatch(startGame())
+  const start = async () => {
+    newRoundWanted(dispatch)
   }
 
   return (
