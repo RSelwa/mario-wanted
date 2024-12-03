@@ -53,10 +53,15 @@ export const INITIAL_DIFFICULTY = 1
 export const MIN_DIFFICULTY = 1
 export const RANDOM_START_DIFFICULTY = 4
 export const MAX_DIFFICULTY = 8
-export const DIFFICULTY_MOVING_PERCENTAGE = 0.1
+export const MAX_GENERATION = 7
 
 export const DISPLAY_HEAD_PERCENTAGE_HIDE = 0.1
 export const DEFAULT_HIGH_SCORE = [0, 0, 0, 0, 0, 0]
 
 export const CIRCLE_QUERY_SELECTOR = ".shadow-hole"
 export const CIRCLE_ANIMATION_CLASS = "animate-circleShow"
+
+export const DIFFICULTY_MOVING_BOUNCE = 8
+export const DIFFICULTY_MOVING_VERTICALLY = 9
+export const DIFFICULTY_MOVING_SLIDING = 10
+export const DIFFICULTY_MOVING_SHUFFLE = 11

@@ -2,10 +2,13 @@ import {
   ALL_CHARACTERS,
   DELAY_BEFORE_NEW_WANTED,
   DIFFICULTY_INCREASE,
-  DIFFICULTY_MOVING_PERCENTAGE,
+  DIFFICULTY_MOVING_BOUNCE,
+  DIFFICULTY_MOVING_SHUFFLE,
+  DIFFICULTY_MOVING_SLIDING,
+  DIFFICULTY_MOVING_VERTICALLY,
   DISPLAY_HEAD_PERCENTAGE_HIDE,
   KEY_SCORE,
-  MAX_DIFFICULTY,
+  MAX_GENERATION,
   MIN_DIFFICULTY,
   NAVBAR_HEIGHT,
   PADDING,
@@ -19,6 +22,9 @@ import cx, { type ArgumentArray } from "classnames"
 import { twMerge } from "tailwind-merge"
 
 export const cn = (...classes: ArgumentArray) => twMerge(cx(classes))
+
+export const getRandomFromArray = <T>(array: T[]): T =>
+  array[Math.floor(Math.random() * array.length)]
 
 export const generateRandomCharacters = (
   characterToExclude: Wanted | null,
@@ -43,24 +49,23 @@ export const increaseDifficulty = (difficulty: number) => {
   if (difficulty >= MIN_DIFFICULTY && difficulty <= RANDOM_START_DIFFICULTY)
     return difficulty + DIFFICULTY_INCREASE
   else {
-    const randomValue = Math.random() // Génère un nombre entre 0 et 1
-
-    if (randomValue < DIFFICULTY_MOVING_PERCENTAGE) {
-      return MAX_DIFFICULTY // 10% de chance pour 8
-    } else if (randomValue < 0.4333)
-      return 5 // ~33% pour 5
-    else if (randomValue < 0.7666)
-      return 6 // ~33% pour 6
-    else return 7 // ~33% pour 7
+    const possibleLevels = [
+      5,
+      6,
+      7,
+      DIFFICULTY_MOVING_BOUNCE,
+      DIFFICULTY_MOVING_VERTICALLY,
+      DIFFICULTY_MOVING_SLIDING,
+      DIFFICULTY_MOVING_SHUFFLE
+    ]
+    return getRandomFromArray(possibleLevels)
   }
 }
 
 export const getNumberOfCharacters = (diff: number) => {
-  // ? If difficulty is 8, return 7 and keep 8 to moving characters
-  const difficulty = diff >= MAX_DIFFICULTY ? MAX_DIFFICULTY - 1 : diff
+  const difficulty = diff > MAX_GENERATION ? MAX_GENERATION : diff
 
-  // Example formula: Number of characters grows exponentially with difficulty
-  return 10 * Math.pow(2, difficulty - 1) // Adjust this formula as needed
+  return 10 * Math.pow(2, difficulty - 1)
 }
 
 export const generateRandomPosition = (resolution: Resolution) => {
