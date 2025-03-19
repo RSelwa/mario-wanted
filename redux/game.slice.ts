@@ -16,13 +16,19 @@ import {
   TIMER_INCREASE
 } from "@/constant"
 import { RootState } from "@/redux/store"
-import { Game } from "@/types"
-import { increaseDifficulty, randomWanted, updatedHighScore } from "@/utils"
+import { WantedGame } from "@/types"
+import {
+  generateNewHeads,
+  increaseDifficulty,
+  randomWanted,
+  updatedHighScore
+} from "@/utils"
 import { getItemFromLocalStorage } from "@/utils/storage"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState: Game = {
+const initialState: WantedGame = {
   selectedGame: GAMES.WANTED,
+  heads: [],
   wanted: randomWanted(),
   score: INITIAL_SCORE,
   round: INITIAL_ROUND,
@@ -41,7 +47,7 @@ export const gameSlice = createSlice({
     resetGame: () => initialState,
     updateResolution: (
       state,
-      { payload }: PayloadAction<Game["resolution"]>
+      { payload }: PayloadAction<WantedGame["resolution"]>
     ) => {
       state.resolution = payload
     },
@@ -56,8 +62,14 @@ export const gameSlice = createSlice({
       state.wanted = randomWanted()
       state.round += ROUND_INCREMENT
       state.difficulty = increaseDifficulty(state.difficulty)
+
+      state.heads = generateNewHeads({
+        difficulty: state.difficulty,
+        resolution: state.resolution,
+        wanted: state.wanted
+      })
     },
-    updateStatus: (state, { payload }: PayloadAction<Game["status"]>) => {
+    updateStatus: (state, { payload }: PayloadAction<WantedGame["status"]>) => {
       state.status = payload
     },
     startGame: (state) => {
@@ -106,14 +118,20 @@ export const gameSlice = createSlice({
     loseLife: (state) => {
       state.lives -= 1
     },
-    changeStatus: (state, { payload }: PayloadAction<Game["status"]>) => {
+    changeStatus: (state, { payload }: PayloadAction<WantedGame["status"]>) => {
       state.status = payload
     },
     newWanted: (state) => {
       state.wanted = randomWanted()
     },
-    updateHighScore: (state, { payload }: PayloadAction<Game["highScore"]>) => {
+    updateHighScore: (
+      state,
+      { payload }: PayloadAction<WantedGame["highScore"]>
+    ) => {
       state.highScore = payload
+    },
+    updateHeads: (state, { payload }: PayloadAction<WantedGame["heads"]>) => {
+      state.heads = payload
     }
   }
 })
@@ -133,7 +151,8 @@ export const {
   updateResolution,
   updateHighScore,
   loseGame,
-  wrongHead
+  wrongHead,
+  updateHeads
 } = gameSlice.actions
 
 export const selectGame = (state: RootState) => state.game
@@ -151,5 +170,6 @@ export const selectDifficulty = (state: RootState) => state.game.difficulty
 export const selectStatus = (state: RootState) => state.game.status
 export const selectResolution = (state: RootState) => state.game.resolution
 export const selectSelectedGame = (state: RootState) => state.game.selectedGame
+export const selectHeads = (state: RootState) => state.game.heads
 
 export default gameSlice.reducer

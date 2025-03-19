@@ -4,6 +4,8 @@ import {
   CIRCLE_ANIMATION_CLASS,
   CIRCLE_QUERY_SELECTOR,
   DELAY_BEFORE_NEW_WANTED,
+  HELPER_DIFFICULTY,
+  HELPER_TIMING,
   OFFSET_TIMER_UI,
   STATUS,
   TIMER_DECREASE,
@@ -29,7 +31,7 @@ type Props = {
 
 const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
   const dispatch = useAppDispatch()
-  const { wanted, status } = useAppSelector(selectGame)
+  const { wanted, status, difficulty, timer } = useAppSelector(selectGame)
 
   const isWanted = wanted === character
   const isFound = status === STATUS.FOUND
@@ -62,6 +64,8 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
     await new Promise((r) => setTimeout(r, DELAY_BEFORE_NEW_WANTED))
     setIsWrong(false)
   }
+
+const isHelpEnabled = !isWanted &&  difficulty>HELPER_DIFFICULTY  && timer< HELPER_TIMING
 
   const disabled = status !== STATUS.PLAYING
 
@@ -106,7 +110,8 @@ const Head: React.FC<Props> = React.memo(({ character, coordinates }) => {
           alt={character}
           style={{
             top: coordinates.y,
-            left: coordinates.x
+            left: coordinates.x,
+            opacity: isHelpEnabled ? timer/10 : 1
           }}
           className="data-[state=found]:hidden data-[cursor=hidden]:cursor-none absolute scale-150 z-20"
         />

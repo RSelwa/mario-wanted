@@ -55,8 +55,7 @@ const Game = () => {
       className="bg-black h-full w-full relative overflow-hidden"
     >
       <div
-        onClick={() => console.log("clicked")}
-        ref={logoRef}
+        ref={logoRef} 
         style={{
           top: position.y,
           left: position.x

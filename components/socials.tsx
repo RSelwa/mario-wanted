@@ -9,7 +9,7 @@ const Socials = () => {
         target="_blank"
         className="underline"
       >
-        Raphael
+        me
       </Link>
     </section>
   )

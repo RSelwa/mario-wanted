@@ -1,5 +1,6 @@
 import {
   ALL_CHARACTERS,
+  CIRCLE_QUERY_SELECTOR,
   DELAY_BEFORE_NEW_WANTED,
   DIFFICULTY_INCREASE,
   DIFFICULTY_MOVING_BOUNCE,
@@ -16,7 +17,7 @@ import {
   STATUS
 } from "@/constant"
 import { changeStatus, newRound } from "@/redux/game.slice"
-import { DispatchType, Resolution, Score, Wanted } from "@/types"
+import { DispatchType, GenerateHeads, Resolution, Score, Wanted } from "@/types"
 import { setItemInLocalStorage } from "@/utils/storage"
 import cx, { type ArgumentArray } from "classnames"
 import { twMerge } from "tailwind-merge"
@@ -83,8 +84,11 @@ export const randomWanted = () =>
 export const insertAtRandomPosition = <T>(array: T[], element: T): T[] => {
   const maxIndex = Math.ceil(array.length * DISPLAY_HEAD_PERCENTAGE_HIDE)
 
-  const randomIndex = Math.floor(Math.random() * (maxIndex || 1)) // maxIndex || 1 gère les tableaux vides.
+  const startIndex = Math.floor(maxIndex * 0.95);
+  const randomIndex = Math.floor(Math.random() * (maxIndex - startIndex)) + startIndex;
+
   array.splice(randomIndex, 0, element)
+  
   return array
 }
 
@@ -98,14 +102,15 @@ export const updatedHighScore = (highScore: Score[], score: Score) => {
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
 export const hideHole = async () => {
-  const hole = document.querySelector(".shadow-hole")
+  const hole = document.querySelector(CIRCLE_QUERY_SELECTOR
+  )
   hole?.classList.add("force-black")
   await sleep(DELAY_BEFORE_NEW_WANTED + 250)
   hole?.classList.remove("force-black")
 }
 
 export const animateHole = async () => {
-  const hole = document.querySelector(".shadow-hole")
+  const hole = document.querySelector(CIRCLE_QUERY_SELECTOR)
 
   hole?.classList.remove("animate-circleShow")
 
@@ -121,4 +126,26 @@ export const newRoundWanted = async (dispatch: DispatchType) => {
   await sleep(DELAY_BEFORE_NEW_WANTED)
 
   dispatch(changeStatus(STATUS.PLAYING))
+}
+
+export const generateNewHeads = ({
+  difficulty,
+  resolution,
+  wanted
+}: GenerateHeads) => {
+  const numberOfCharacters = getNumberOfCharacters(difficulty)
+
+  const randomHeads = generateRandomCharacters(
+    wanted,
+    numberOfCharacters,
+    resolution
+  )
+  const wantedHead = {
+    character: wanted,
+    coordinates: generateRandomPosition(resolution)
+  }
+
+  const heads = insertAtRandomPosition(randomHeads, wantedHead)
+
+  return heads
 }
